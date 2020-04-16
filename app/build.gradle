@@ -4,10 +4,12 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "id.ilhamsuaib.newsmvvm"
+        applicationId "kalbenutritionals2020.imos"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -24,13 +26,14 @@ android {
 
 ext {
     versions = [
-            appCompat: '1.0.2',
-            koin     : '1.0.2',
-            lifecycle: '2.0.0',
-            retrofit : '2.5.0',
-            okhttp   : '3.10.0',
-            rxAndroid: '2.1.0',
-            glide    : '4.8.0'
+            appCompat   : '1.0.2',
+            koin        : '1.0.2',
+            lifecycle   : '2.0.0',
+            retrofit    : '2.5.0',
+            okhttp      : '3.10.0',
+            rxAndroid   : '2.1.0',
+            glide       : '4.8.0',
+            room        : '2.2.5'
     ]
 
     androidxDeps = [
@@ -66,6 +69,11 @@ ext {
     otherDeps = [
             glide: 'com.github.bumptech.glide:glide:' + versions.glide
     ]
+
+    roomDeps = [
+            room: 'androidx.room:room-runtime:'+ versions.room,
+            roomrx: 'androidx.room:room-rxjava2:' + versions.room
+    ]
 }
 
 dependencies {
@@ -74,12 +82,15 @@ dependencies {
 
     implementation androidxDeps.values()
     implementation lifecycleDeps.values()
+    implementation roomDeps.values()
     implementation koinDeps.values()
     implementation networkDeps.values()
     implementation rxDeps.values()
     implementation otherDeps.values()
 
+    annotationProcessor 'androidx.room:room-compiler:' + versions.room
     annotationProcessor 'com.github.bumptech.glide:compiler:' + versions.glide
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
